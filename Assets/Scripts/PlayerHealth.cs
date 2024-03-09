@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxHealth = nowHealth;
+        nowHealth = maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
