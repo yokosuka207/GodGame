@@ -51,6 +51,9 @@ public class EnemySpawner : MonoBehaviour
                     enemyInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 }
 
+                // ƒ^ƒO‚ğİ’è
+                enemyInstance.tag = "Enemy";
+
                 currentEnemyCount++;
             }
 
