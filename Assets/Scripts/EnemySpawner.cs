@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 // ƒ^ƒO‚ğİ’è
-                enemyInstance.tag = "Enemy";
+                //enemyInstance.tag = "Enemy";
 
                 currentEnemyCount++;
             }
