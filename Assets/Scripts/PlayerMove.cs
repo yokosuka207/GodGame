@@ -57,7 +57,5 @@ public class PlayerMove : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, 0.0f);
         }
-
-        Debug.Log(rb.velocity);
     }
 }

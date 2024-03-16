@@ -420,7 +420,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3171873339188517672, guid: f15a9e5c475a81e45bba14b531142be4, type: 3}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3
   firstSpawnDelay: 2
   spawnIntervalEnemy1: 1
 --- !u!1 &950161759
