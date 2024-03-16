@@ -50,11 +50,11 @@ public class PlayerMove : MonoBehaviour
         }
 
         // Block配置
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3Int grid = tileMap.WorldToCell(transform.position);
-            tileMap.SetTile(grid, blockTile);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3Int grid = tileMap.WorldToCell(transform.position);
+        //    tileMap.SetTile(grid, blockTile);
+        //}
 
         // レベルに応じたスピード変更
         UpSpeed();
