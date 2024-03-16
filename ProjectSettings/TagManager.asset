@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Block
   - Enemy
   layers:
   - Default
@@ -16,8 +15,8 @@ TagManager:
   - 
   - 
   - 
-  - Through
-  - Collirion
+  - 
+  - 
   - 
   - 
   - 
