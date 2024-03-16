@@ -16,26 +16,26 @@ public class PlayerHealth : MonoBehaviour
         nowHealth = maxHealth;
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Enemy"))
-    //    {
-    //        if (!isDamaged)
-    //        {
-    //            isDamaged = true;
-    //            InvokeRepeating("TakeDamage", 0.5f, 0.5f); // 0.5秒ごとにTakeDamageメソッドを呼び出す
-    //        }
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            if (!isDamaged)
+            {
+                isDamaged = true;
+                InvokeRepeating("TakeDamage", 0.5f, 0.5f); // 0.5秒ごとにTakeDamageメソッドを呼び出す
+            }
+        }
+    }
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Enemy"))
-    //    {
-    //        CancelInvoke("TakeDamage"); // ダメージを受けなくなったらInvokeをキャンセルする
-    //        isDamaged = false;
-    //    }
-    //}
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            CancelInvoke("TakeDamage"); // ダメージを受けなくなったらInvokeをキャンセルする
+            isDamaged = false;
+        }
+    }
 
     private void TakeDamage()
     {
