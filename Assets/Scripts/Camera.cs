@@ -7,6 +7,7 @@ public class cameraManager : MonoBehaviour
 
     public GameObject target; // 追従する対象を決める変数
     Vector3 pos;              // カメラの初期位置を記憶するための変数
+    [SerializeField] private float stopTime = 0.2f;
 
     //停止機能？↓
 
@@ -30,26 +31,36 @@ public class cameraManager : MonoBehaviour
     {
         Vector3 cameraPos = target.transform.position; // cameraPosという変数を作り、追従する対象の位置を入れる
 
-        // もし対象の横位置が0より小さい場合
-        if (target.transform.position.x < 0)
-        {
-            cameraPos.x = 0; // カメラの横位置に0を入れる
-        }
-
-        // もし対象の縦位置が0より小さい場合
-        if (target.transform.position.y < 0)
-        {
-            cameraPos.y = 0;  // カメラの縦位置に0を入れる
-        }
-
-        // もし対象の縦位置が0より大きい場合
-        if (target.transform.position.y > 0)
-        {
-            cameraPos.y = target.transform.position.y;   // カメラの縦位置に対象の位置を入れる
-        }
+      
 
         cameraPos.z = -10; // カメラの奥行きの位置に-10を入れる
         Camera.main.gameObject.transform.position = cameraPos; //　カメラの位置に変数cameraPosの位置を入れる
 
     }
+
+    private bool isMovecam = true;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Block"))
+        {
+            isMovecam = false;
+            Invoke("IsCameraFree", stopTime);
+           // Debug.Log("tomeru");
+        }
+    }
+
+    private void IsCameraFree()
+    {
+        isMovecam = true;
+       // Debug.Log("ugoku");
+
+    }
+
+    public bool Returncam()
+    {
+        return isMovecam;
+    }
+
+
 }
