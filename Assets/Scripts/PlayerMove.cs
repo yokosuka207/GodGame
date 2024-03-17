@@ -24,7 +24,7 @@ public class PlayerMove : MonoBehaviour
 
     // ƒJƒƒ‰
     private GameObject ca;
-    private cameraManager cm;
+    private CameraManager cm;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class PlayerMove : MonoBehaviour
 
         // ƒJƒƒ‰‚Ìæ“¾
         ca = GameObject.Find("Main Camera");
-        cm = ca.GetComponent<cameraManager>();
+        cm = ca.GetComponent<CameraManager>();
     }
 
     void Update()
