@@ -23,10 +23,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private Tilemap tileMap;       // タイルマップ
     [SerializeField] private Tile blockTile;        // タイルマップのブロック
 
-    
-
-    GameObject ca;
-    cameraManager cm;
+    // カメラ
+    private GameObject ca;
+    private cameraManager cm;
 
     private void Start()
     {
@@ -36,7 +35,6 @@ public class PlayerMove : MonoBehaviour
 
         ca = GameObject.Find("Main Camera");
         cm = ca.GetComponent<cameraManager>();
-
     }
 
     void Update()
@@ -68,11 +66,9 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(cm.Returncam());
         // 移動
         if (isMove && cm.Returncam())
         {
-            Debug.Log("Aaaaaaaaaaaaaaaaaaaaaaaaaa");
             // プレイヤーに力を加える
             rb.AddForce(movement * moveSpeed);
 
@@ -102,11 +98,9 @@ public class PlayerMove : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0.0f);
             }
-
-
-
         }
 
+        // カメラからの停止命令がでている場合
         else if (!cm.Returncam())
         {
             rb.velocity = Vector2.zero;
