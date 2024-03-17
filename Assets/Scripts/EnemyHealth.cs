@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 10; //エネミーの最大ヘルス
-    public int currentHealth;　//現在のヘルス
+    public int currentHealth; //現在のヘルス
 
     void Start()
     {
