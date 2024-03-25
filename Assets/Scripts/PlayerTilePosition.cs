@@ -18,11 +18,11 @@ public class PlayerTilePosition : MonoBehaviour
 
         if (tile != null)
         {
-            Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
+            //Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
         }
         else
         {
-            Debug.Log("Player is not on any tile");
+            //Debug.Log("Player is not on any tile");
         }
     }
 }
