@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour
     bool isBlockCollided = false;
     bool isFlameCollided = false;
 
+    private int experiencePointsE = 1; //エネミーに内包している経験値
+
     void Start()
     {
         currentHealth = maxHealth; // 最大ヘルスで初期化
@@ -45,10 +47,19 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        // エネミーが死亡したときに経験値をプレイヤーに渡す
+        FindObjectOfType<PlayerLevel>().GainExperience(experiencePointsE);
+    }
+
     void Die()
     {
         // エネミーを消す
         Destroy(gameObject);
+
+        //プレイヤーに経験値を引き渡す
+        OnDestroy();
 
         // プレイヤーにエネミーが死亡したことを通知する
         PlayerHealth player = FindObjectOfType<PlayerHealth>();
