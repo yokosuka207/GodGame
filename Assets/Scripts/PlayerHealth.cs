@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
 
     public int maxHealth = 100;  //体力の最大値
-    private int nowHealth;　     //現在の体力
+    public int nowHealth;　     //現在の体力
 
     private bool isDamaged = false;
 
@@ -23,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
             if (!isDamaged)
             {
                 isDamaged = true;
-                InvokeRepeating("TakeDamage", 0.5f, 0.5f); // 0.5秒ごとにTakeDamageメソッドを呼び出す
+                InvokeRepeating("TakeDamage", 0.5f, 0.5f); // 0.5秒ごとにTakeDamageを呼び出す
             }
         }
     }
@@ -39,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeDamage()
     {
+        Debug.Log("5ダメージ");
         nowHealth -= 5; // 体力を減らす
 
         if (nowHealth <= 0)
@@ -50,6 +52,11 @@ public class PlayerHealth : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+
+    }
+
+    public void EnemyDied()
     {
 
     }
