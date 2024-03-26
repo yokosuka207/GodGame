@@ -30,14 +30,14 @@ public class Enemy1 : MonoBehaviour
 
         // プレイヤーに向かって移動
         transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(startPoint.position, endPoint.position - startPoint.position, out hitInfo, Vector3.Distance(startPoint.position, endPoint.position)))
-        {
-            // 衝突したオブジェクトがある場合の処理
-            Vector2 blockdodge = new Vector2(0, 1);
-            transform.Translate(blockdodge * speed * Time.deltaTime);
-            Debug.Log("衝突したオブジェクト：" + hitInfo.collider.gameObject.name);
-        }
+        //RaycastHit hitInfo;
+        //if (Physics.Raycast(startPoint.position, endPoint.position - startPoint.position, out hitInfo, Vector3.Distance(startPoint.position, endPoint.position)))
+        //{
+        //    // 衝突したオブジェクトがある場合の処理
+        //    Vector2 blockdodge = new Vector2(0, 1);
+        //    transform.Translate(blockdodge * speed * Time.deltaTime);
+        //    Debug.Log("衝突したオブジェクト：" + hitInfo.collider.gameObject.name);
+        //}
 
     }
     private void OnCollisionEnter(Collision collision)
