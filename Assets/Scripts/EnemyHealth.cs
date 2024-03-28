@@ -47,10 +47,19 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         // エネミーが死亡したときに経験値をプレイヤーに渡す
-        FindObjectOfType<PlayerLevel>().GainExperience(experiencePointsE);
+        PlayerLevel playerExperience = FindObjectOfType<PlayerLevel>();
+        if (playerExperience != null)
+        {
+            playerExperience.GainExperience(experiencePointsE);
+        }
+        else
+        {
+           
+        }
+        //FindObjectOfType<PlayerLevel>().GainExperience(experiencePointsE);
     }
 
     void Die()
