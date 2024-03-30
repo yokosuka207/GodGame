@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 public class PlayerTilePosition : MonoBehaviour
 {
     public Tilemap tilemap;
+    public GameObject markerPrefab; // マーカーのプレハブ
+    private GameObject markerInstance; // マーカーのインスタンス
 
     private void Update()
     {
@@ -18,11 +20,32 @@ public class PlayerTilePosition : MonoBehaviour
 
         if (tile != null)
         {
-            //Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
+            Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
+
+            // タイルの中心座標を取得
+            Vector3 tileCenter = tilemap.GetCellCenterWorld(cellPosition);
+
+            // マーカーが存在しない場合はインスタンスを生成する
+            if (markerInstance == null)
+            {
+                markerInstance = Instantiate(markerPrefab, tileCenter, Quaternion.identity);
+            }
+            // マーカーが存在する場合は位置を更新する
+            else
+            {
+                markerInstance.transform.position = tileCenter;
+            }
         }
         else
         {
-            //Debug.Log("Player is not on any tile");
+            Debug.Log("Player is not on any tile");
+
+            // マーカーが存在する場合は削除する
+            if (markerInstance != null)
+            {
+                Destroy(markerInstance);
+                markerInstance = null;
+            }
         }
     }
 }
