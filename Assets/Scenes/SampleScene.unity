@@ -1452,3 +1452,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 501730702}
+  markerPrefab: {fileID: 3649354396766616355, guid: 9c33a44431d99cc4d9e591e771db3a96, type: 3}
