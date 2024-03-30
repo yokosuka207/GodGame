@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6900393272268433336}
   - component: {fileID: 3459559542283154026}
-  - component: {fileID: 1982538481635171924}
-  - component: {fileID: 9013970332748890609}
+  - component: {fileID: -1241351652919755115}
+  - component: {fileID: 3542241103032943291}
   m_Layer: 0
   m_Name: Block
   m_TagString: Block
@@ -43,11 +43,25 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546510768699896896}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 1, y: 1.017192, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!61 &1982538481635171924
+--- !u!114 &-1241351652919755115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546510768699896896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59831e05c6bff924481543c0f54c24cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 20
+  damage: 10
+--- !u!61 &3542241103032943291
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,21 +106,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9013970332748890609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 546510768699896896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e24eef18c33edf146ae1c9024f1c3b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
-  health: 20
-  damage: 10
 --- !u!1 &3946946117628418340
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +260,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &6061750177815533440
+--- !u!114 &878351847566726559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
