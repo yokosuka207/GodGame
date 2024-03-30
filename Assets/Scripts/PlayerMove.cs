@@ -9,18 +9,23 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;                 // Rigidbody2D
     private CapsuleCollider2D cc;           // BoxCollider2D
     private PlayerLevel pl;                 // PlayerLevelクラス
+    private PlayerTilePosition pt;          // PlayerTilePositionクラス
     private bool isMove = true;             // 移動Flag
+
+
+    public GameObject brushObject;
 
     // プレイヤー速度
     [SerializeField] private Vector2 maxMove = new Vector2(2.0f, 2.0f);
     private Vector2 move;                   // 入力方向の情報
     private Vector2 movement;               // 入力方向の情報保持
-    private float moveSpeed = 100.0f;     // 
-    private float moveUp;                 // レベルアップした時に足すスピード
+    private float moveSpeed = 100.0f;       // 
+    private float moveUp;                   // レベルアップした時に足すスピード
 
     // Block
     [SerializeField] private Tilemap tileMap;       // タイルマップ
     [SerializeField] private Tile blockTile;        // タイルマップのブロック
+    private Vector3Int tilePos;                     // TilePosition
 
     // カメラ
     private GameObject ca;
@@ -31,7 +36,8 @@ public class PlayerMove : MonoBehaviour
         // Info取得
         rb = this.GetComponent<Rigidbody2D>();          // Rigidbody2D取得
         cc = this.GetComponent<CapsuleCollider2D>();    // CapsuleCollider2D取得
-        pl = GetComponent<PlayerLevel>();               // PlayerLevelスクリプト取得
+        pl = this.GetComponent<PlayerLevel>();               // PlayerLevelスクリプト取得
+        pt = this.GetComponent<PlayerTilePosition>();        // PlayerTilePositionスクリプト取得
 
         // カメラの取得
         ca = GameObject.Find("Main Camera");
@@ -56,13 +62,6 @@ public class PlayerMove : MonoBehaviour
         {
             movement = Vector2.zero;
         }
-
-        // Block配置
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3Int grid = tileMap.WorldToCell(transform.position);
-        //    tileMap.SetTile(grid, blockTile);
-        //}
     }
 
     private void FixedUpdate()
@@ -103,8 +102,24 @@ public class PlayerMove : MonoBehaviour
         // カメラからの停止命令がでている場合
         else if (!cm.Returncam())
         {
-            rb.velocity = Vector2.zero;
+            // パルク―ル中止まらない
+            if(cc.isTrigger != true)
+                rb.velocity = Vector2.zero;
         }
+
+        // ブロック配置
+        if (tilePos != pt.GetTilePos())
+        {
+            if (Input.GetMouseButton(0))
+            {
+                // なんかブロックが左一列ずれてるから
+                Vector3Int grid = tileMap.WorldToCell(tilePos);
+                grid += new Vector3Int(1, 0, 0);
+                Instantiate(brushObject, grid, Quaternion.identity);
+            }
+        }
+        tilePos = pt.GetTilePos();
+
     }
 
     private void OnCollisionStay2D(Collision2D collision)
