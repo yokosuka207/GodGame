@@ -30,6 +30,19 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 衝突したオブジェクトがオブジェクト2(Block)である場合
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            isBlockCollided = false;
+        }
+        if (collision.gameObject.CompareTag("Flame"))
+        {
+            isFlameCollided = false;
+        }
+    }
+
     void Update()
     {
         if (isBlockCollided && isFlameCollided)
