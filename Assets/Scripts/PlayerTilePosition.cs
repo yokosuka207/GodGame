@@ -21,7 +21,7 @@ public class PlayerTilePosition : MonoBehaviour
 
         if (tile != null)
         {
-            Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
+            //Debug.Log("Player is on tile: " + tile.name + " at position " + cellPosition);
 
             // タイルの中心座標を取得
             Vector3 tileCenter = tilemap.GetCellCenterWorld(cellPosition);
@@ -39,7 +39,7 @@ public class PlayerTilePosition : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player is not on any tile");
+            //Debug.Log("Player is not on any tile");
 
             // マーカーが存在する場合は削除する
             if (markerInstance != null)
