@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (nowHealth <= 0)
         {
-
+            
         }
     }
 
