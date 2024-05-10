@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void TakeDamage()
     {
-        Debug.Log("5ダメージ");
+        //Debug.Log("5ダメージ");
         nowHealth -= 5; // 体力を減らす
 
         if (nowHealth <= 0)

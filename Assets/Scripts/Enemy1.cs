@@ -40,10 +40,16 @@ public class Enemy1 : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerTrigger2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == ("block"))
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == ("Block"))
         {
+            //Debug.Log("‚ ‚ ‚ ");
             Vector2 blockdodge = new Vector2(0, 1);
             transform.Translate(blockdodge * speed * Time.deltaTime);
         }
