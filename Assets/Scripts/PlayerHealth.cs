@@ -5,11 +5,18 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public static PlayerHealth instance;
 
-    public int maxHealth = 100;  //体力の最大値
-    public int nowHealth;　     //現在の体力
+    public float maxHealth = 100;  //体力の最大値
+    public float nowHealth;　     //現在の体力
 
     private bool isDamaged = false;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +52,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (nowHealth <= 0)
         {
-
+            GameManager.Instance.GameOver();
         }
     }
-
 
     // Update is called once per frame
     void Update()
