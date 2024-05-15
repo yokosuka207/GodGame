@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
             if (!isDamaged)
             {
                 isDamaged = true;
-                InvokeRepeating("TakeDamage", 0.5f, 0.5f); // 0.5•b‚²‚Æ‚ÉTakeDamage‚ğŒÄ‚Ño‚·
+                InvokeRepeating("TakeDamage", 0, 0.5f); // 0.5•b‚²‚Æ‚ÉTakeDamage‚ğŒÄ‚Ño‚·
             }
         }
     }
