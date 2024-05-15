@@ -5,14 +5,22 @@ using UnityEngine.Events;
 
 public class PlayerLevel : MonoBehaviour
 {
-    public int experiencePoints = 0;        // プレイヤーの経験値
-    [SerializeField] private int level = 1; // プレイヤーのレベル
-    private int levelUpBorder = 10;         // レベルアップに必要な経験値
+    public static PlayerLevel instance;
+
+    public float experiencePoints = 0;        // プレイヤーの経験値
+    public int level = 1; // プレイヤーのレベル
+    public float levelUpBorder = 10;         // レベルアップに必要な経験値
 
     // Start is called before the first frame update
     void Start()
     {
 
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
     }
 
     //エネミーが死亡したら呼び出される
