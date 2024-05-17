@@ -3,85 +3,50 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter)), RequireComponent(typeof(MeshRenderer))]
 public class GridRenderer : MonoBehaviour
 {
-    Vector3[] verts;    //ポリゴンの頂点を入れる
-    int[] triangles;    //三角形を描く際に、頂点の描画順を指定する
-    //GameObject camera;  //カメラ
+    public Vector2Int gridSize; // グリッド全体のサイズ
+    public float cellSize = 1f; // グリッドセルのサイズ
+    private GameObject[,] gridCells;
 
-    [SerializeField, Header("使用するMaterial")] Material material;
-    [SerializeField, Header("大きさ")] Vector2Int size;
-    [SerializeField, Header("線の太さ")] float lineSize;
+    public Material material; // 使用するマテリアル
+    public GameObject gridCellPrefab; // グリッドセルのプレハブ
 
     void Start()
     {
-        //カメラを取得
-        //camera = GameObject.FindGameObjectWithTag("MainCamera");
+        CreateGrid();
     }
 
-    // Update is called once per frame
-    void Update()
+    void CreateGrid()
     {
-        CreateGlid();
+        gridCells = new GameObject[gridSize.x, gridSize.y];
 
-        //カメラをグリッドの中心へ(必要ない場合はコメントアウトしてください)
-        //camera.transform.position = new Vector3((float)size.x / 2, ((float)size.y / 2) - 0.1f, -10);
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                Vector3 position = new Vector3(x * cellSize + 0.5f, y * cellSize + 0.5f, 0);
+                gridCells[x, y] = Instantiate(gridCellPrefab, position, Quaternion.identity, transform);
+                gridCells[x, y].SetActive(false); // 初期状態では非表示
+            }
+        }
     }
 
-    void CreateGlid()
+    public void UpdateGridDisplay(Vector2Int centerPosition, Vector2Int displaySize)
     {
-        //新しいMeshを作成
-        Mesh mesh = new Mesh();
-
-        //頂点の番号をsize分確保、縦横の線が一本ずつなくなるので+2を入れる、一本の線は頂点6つで表示させるので*6
-        triangles = new int[(size.x + size.y + 2) * 6];
-        //頂点の座標をsize分確保
-        verts = new Vector3[(size.x + size.y + 2) * 6];
-
-        //頂点番号を割り当て
-        for (int i = 0; i < triangles.Length; i++)
+        for (int x = 0; x < gridSize.x; x++)
         {
-            triangles[i] = i;
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                Vector2Int cellPosition = new Vector2Int(x, y);
+                if (Mathf.Abs(cellPosition.x - centerPosition.x) <= displaySize.x / 2 &&
+                    Mathf.Abs(cellPosition.y - centerPosition.y) <= displaySize.y / 2)
+                {
+                    gridCells[x, y].SetActive(true);
+                }
+                else
+                {
+                    gridCells[x, y].SetActive(false);
+                }
+            }
         }
-
-
-        //何回for分が回ったかをカウントさせる
-        int x = 0, y = 0;
-
-        //縦線
-        for (int i = 0; i < (size.x + 1) * 6; i += 6)
-        {
-            verts[i] = new Vector3(x, 0, 0);
-            verts[i + 1] = new Vector3(x, size.y, 0);
-            verts[i + 2] = new Vector3(lineSize + x, size.y, 0);
-            verts[i + 3] = new Vector3(lineSize + x, size.y, 0);
-            verts[i + 4] = new Vector3(lineSize + x, 0, 0);
-            verts[i + 5] = new Vector3(x, 0, 0);
-            x++;
-        }
-
-        //横線
-        for (int i = (size.x + 1) * 6; i < (size.x + size.y + 2) * 6; i += 6)
-        {
-            verts[i] = new Vector3(0, y, 0);
-            verts[i + 1] = new Vector3(size.x + lineSize, y, 0);
-            verts[i + 2] = new Vector3(0, y - lineSize, 0);
-            verts[i + 3] = new Vector3(size.x + lineSize, y, 0);
-            verts[i + 4] = new Vector3(size.x + lineSize, y - lineSize, 0);
-            verts[i + 5] = new Vector3(0, y - lineSize, 0);
-            y++;
-        }
-
-        //作った頂点番号、座標データを作成したmeshに追加
-        mesh.vertices = verts;
-        mesh.triangles = triangles;
-
-        //再計算()
-        mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
-
-        //再計算後に完成したMeshを追加
-        GetComponent<MeshFilter>().mesh = mesh;
-        //設定したMaterialを反映
-        GetComponent<MeshRenderer>().material = material;
     }
 }
-
