@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experiencePoints: 0
-  level: 1
+  level: 10
   levelUpBorder: 10
 --- !u!114 &1126798813
 MonoBehaviour:

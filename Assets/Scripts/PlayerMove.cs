@@ -104,6 +104,7 @@ public class PlayerMove : MonoBehaviour
         // カメラからの停止命令がでている場合
         else if (!cm.Returncam())
         {
+            if(movement.x == movement.y)
             rb.AddForce(-movement * moveSpeed);
 
             // パルク―ル中止まらない
@@ -111,26 +112,10 @@ public class PlayerMove : MonoBehaviour
                 rb.velocity = Vector2.zero;
         }
 
-        // パルクール処理
-        //if (isPar)
-        //{
-        //    // 衝突前の入力方向へ移動
-        //    rb.velocity = new Vector2(movement.x * parSpeed.x, movement.y * parSpeed.y);
-        //    isMove = false;
-        //    cc.isTrigger = true;        // trueですり抜けさせる
-        //}
-        //else
-        //{
-        //    // 一度停止、Trigger,isMove,isParを戻す
-        //    rb.velocity = Vector2.zero;
-        //    cc.isTrigger = false;
-        //    isMove = true;
-        //}
-
         // ブロック配置
         if (tilePos != pt.GetTilePos())
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetKey(KeyCode.Space))
             {
                 // なんかブロックが左一列ずれてるから
                 Vector3Int grid = tileMap.WorldToCell(tilePos);
@@ -149,7 +134,7 @@ public class PlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             // パルクール (Fキー & レベル10)
-            if (Input.GetKey(KeyCode.F) && (pl.GetLevel() >= 10))
+            if (Input.GetKey(KeyCode.LeftShift) && (pl.GetLevel() >= 10))
             {
                 // 方向キーが入力されてる
                 if (movement != Vector2.zero)
