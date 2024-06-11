@@ -11,12 +11,14 @@ public class PlayerMove : MonoBehaviour
     private PlayerLevel pl;                 // PlayerLevelクラス
     private PlayerTilePosition pt;          // PlayerTilePositionクラス
     private bool isMove = true;             // 移動Flag
-
+    private bool isPar = false;             // パルクールFlags
+    private GameObject closeObject;         // 一番近いオブジェクト
 
     public GameObject brushObject;
 
     // プレイヤー速度
-    [SerializeField] private Vector2 maxMove = new Vector2(2.0f, 2.0f);
+    [SerializeField] private Vector2 maxMove = new Vector2(2.0f, 2.0f);     // 移動スピード
+    [SerializeField] private Vector2 parSpeed = new Vector2(1.0f, 1.0f);    // パルクール中スピード
     private Vector2 move;                   // 入力方向の情報
     private Vector2 movement;               // 入力方向の情報保持
     private float moveSpeed = 100.0f;       // 
@@ -102,10 +104,28 @@ public class PlayerMove : MonoBehaviour
         // カメラからの停止命令がでている場合
         else if (!cm.Returncam())
         {
+            rb.AddForce(-movement * moveSpeed);
+
             // パルク―ル中止まらない
-            if(cc.isTrigger != true)
+            if (cc.isTrigger != true)
                 rb.velocity = Vector2.zero;
         }
+
+        // パルクール処理
+        //if (isPar)
+        //{
+        //    // 衝突前の入力方向へ移動
+        //    rb.velocity = new Vector2(movement.x * parSpeed.x, movement.y * parSpeed.y);
+        //    isMove = false;
+        //    cc.isTrigger = true;        // trueですり抜けさせる
+        //}
+        //else
+        //{
+        //    // 一度停止、Trigger,isMove,isParを戻す
+        //    rb.velocity = Vector2.zero;
+        //    cc.isTrigger = false;
+        //    isMove = true;
+        //}
 
         // ブロック配置
         if (tilePos != pt.GetTilePos())
@@ -118,6 +138,7 @@ public class PlayerMove : MonoBehaviour
                 Instantiate(brushObject, grid, Quaternion.identity);
             }
         }
+
         tilePos = pt.GetTilePos();
 
     }
@@ -133,8 +154,9 @@ public class PlayerMove : MonoBehaviour
                 // 方向キーが入力されてる
                 if (movement != Vector2.zero)
                 {
+                    //isPar = true;
                     // 衝突前の入力方向へ移動
-                    rb.velocity = new Vector2(movement.x, movement.y);
+                    rb.velocity = new Vector2(movement.x * parSpeed.x, movement.y * parSpeed.y);
                     isMove = false;
                     cc.isTrigger = true;        // trueですり抜けさせる
                 }
@@ -147,10 +169,14 @@ public class PlayerMove : MonoBehaviour
         // ブロック
         if (collision.gameObject.CompareTag("Block"))
         {
-            // 一度停止、Trigger,isMove,isParを戻す
-            rb.velocity = Vector2.zero;
-            cc.isTrigger = false;
-            isMove = true;
+            if (!FindObject("Block"))
+            {
+                //isPar = false;
+                // 一度停止、Trigger,isMove,isParを戻す
+                rb.velocity = Vector2.zero;
+                cc.isTrigger = false;
+                isMove = true;
+            }            
         }
     }
 
@@ -158,5 +184,35 @@ public class PlayerMove : MonoBehaviour
     {
         // レベルに応じたスピード計算
         moveUp = pl.GetLevel() * 0.1f;
+    }
+
+    // 一番近いオブジェクトタグを見つける(タイルを見つける)
+    private GameObject FindObject(string Tag)
+    {
+        // ターゲットタグのオブジェクトを持つコライダーを見つける
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(this.transform.position, 0.1f);
+
+        foreach (Collider2D collider in colliders)
+        {
+            // タグが一致するか確認
+            if (collider.CompareTag("Block"))
+            {
+                // ターゲットとの距離を計算
+                float distance = Vector2.Distance(this.transform.position, collider.transform.position);
+
+                // 最も近いオブジェクトを更新
+                if (distance < Mathf.Infinity)
+                {
+                    closeObject = collider.gameObject;
+                    return closeObject;
+                }
+                else
+                {
+                    closeObject = null;
+                }
+            }
+        }
+
+        return null;
     }
 }
