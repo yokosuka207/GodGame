@@ -12,6 +12,9 @@ public class EnemyHealth : MonoBehaviour
 
     private int experiencePointsE = 1; //エネミーに内包している経験値
 
+    public GameObject DeathEffectPrefab; // エフェクトのプレハブを指定
+    public float deathEffectDuration = 0.2f; // エフェクトの持続時間を指定
+
     void Start()
     {
         currentHealth = maxHealth; // 最大ヘルスで初期化
@@ -60,7 +63,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void OnDestroy()
+    void OnDestroy()
     {
         // エネミーが死亡したときに経験値をプレイヤーに渡す
         PlayerLevel playerExperience = FindObjectOfType<PlayerLevel>();
@@ -68,20 +71,6 @@ public class EnemyHealth : MonoBehaviour
         {
             playerExperience.GainExperience(experiencePointsE);
         }
-        else
-        {
-           
-        }
-        //FindObjectOfType<PlayerLevel>().GainExperience(experiencePointsE);
-    }
-
-    void Die()
-    {
-        // エネミーを消す
-        Destroy(gameObject);
-
-        //プレイヤーに経験値を引き渡す
-        OnDestroy();
 
         // プレイヤーにエネミーが死亡したことを通知する
         PlayerHealth player = FindObjectOfType<PlayerHealth>();
@@ -91,4 +80,36 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    void Die()
+    {
+        // 死亡エフェクトを発生させる
+        SpawnDeathEffect();
+
+        // エネミーを消す
+        Destroy(gameObject);
+
+        //プレイヤーに経験値を引き渡す
+        OnDestroy();
+    }
+
+    void SpawnDeathEffect()
+    {
+        if (DeathEffectPrefab != null)
+        {
+            // エフェクトを敵キャラクターの位置に生成
+            GameObject effect = Instantiate(DeathEffectPrefab, transform.position, transform.rotation);
+
+            // 一定時間後にエフェクトを破壊
+            Destroy(effect, deathEffectDuration);
+        }
+        else
+        {
+            Debug.LogWarning("Death effect prefab is not assigned.");
+        }
+    }
+
+    public void SetDeathEffect(GameObject newEffectPrefab)
+    {
+        DeathEffectPrefab = newEffectPrefab;
+    }
 }
