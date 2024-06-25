@@ -174,7 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 1
-  DeathEffectPrefab: {fileID: 1460167331611860076, guid: 94f9df7841cfc3d4d9e051d01f7dbc51, type: 3}
+  DeathEffectPrefab: {fileID: 1460167331611860076, guid: c2dc850ba2f812e4ab27231b6f4cedb5, type: 3}
+  deathEffectDuration: 0.2
 --- !u!114 &43333622123645914
 MonoBehaviour:
   m_ObjectHideFlags: 0
