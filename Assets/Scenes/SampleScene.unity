@@ -2196,9 +2196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10469ab63a322b4eb6b8c92170a9c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSize: {x: 100, y: 100}
+  cellSize: 1
   material: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
-  size: {x: 100, y: 100}
-  lineSize: 0.1
+  gridCellPrefab: {fileID: 7347296304520797276, guid: 218a88cb936298542b0982ea82384a86, type: 3}
 --- !u!23 &2025854787
 MeshRenderer:
   m_ObjectHideFlags: 0
