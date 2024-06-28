@@ -5,9 +5,10 @@ using UnityEngine;
 public class cameraManager : MonoBehaviour
 {
 
-    [SerializeField] private float stopTime = 0.2f;
     [SerializeField] private GameObject target;         // ’Ç]‚·‚é‘ÎÛ‚ğŒˆ‚ß‚é•Ï”
+    [SerializeField] private float stopTime = 0.2f;
     private bool isMovecam = true;
+    private string flameObj;
 
     // Update is called once per frame
     void Update()
@@ -29,10 +30,18 @@ public class cameraManager : MonoBehaviour
         isMovecam = true;
     }
 
+    public void SetFlameObj(string Obj)
+    {
+        flameObj = Obj;
+    }
+
+    public string GetFlameObj()
+    {
+        return flameObj;
+    }
+
     public bool Returncam()
     {
         return isMovecam;
     }
-
-
 }

@@ -27,7 +27,10 @@ public class EnemyHealth : MonoBehaviour
         {
             isBlockCollided = true;
         }
-        if (other.gameObject.CompareTag("Flame"))
+        if (other.gameObject.CompareTag("UpFlame") ||
+            other.gameObject.CompareTag("UnderFlame") ||
+            other.gameObject.CompareTag("RightFlame") ||
+            other.gameObject.CompareTag("LeftFlame"))
         {
             isFlameCollided = true;
         }
@@ -40,7 +43,10 @@ public class EnemyHealth : MonoBehaviour
         {
             isBlockCollided = false;
         }
-        if (collision.gameObject.CompareTag("Flame"))
+        if (collision.gameObject.CompareTag("UpFlame") ||
+            collision.gameObject.CompareTag("UnderFlame") ||
+            collision.gameObject.CompareTag("RightFlame") ||
+            collision.gameObject.CompareTag("LeftFlame"))
         {
             isFlameCollided = false;
         }

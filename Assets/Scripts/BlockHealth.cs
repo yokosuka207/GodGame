@@ -11,7 +11,10 @@ public class BlockHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Flame"))
+        if (collision.gameObject.CompareTag("UpFlame") ||
+            collision.gameObject.CompareTag("UnderFlame") ||
+            collision.gameObject.CompareTag("RightFlame") ||
+            collision.gameObject.CompareTag("LeftFlame"))
         {
             health = health - damage;
 

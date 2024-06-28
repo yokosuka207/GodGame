@@ -32,6 +32,10 @@ public class PlayerMove : MonoBehaviour
     // カメラ
     private GameObject ca;
     private cameraManager cm;
+    private UpFlame upf;
+    private UnderFlame unerf;
+    private RightFlame rf;
+    private LeftFlame lf;
 
     private void Start()
     {
@@ -104,8 +108,25 @@ public class PlayerMove : MonoBehaviour
         // カメラからの停止命令がでている場合
         else if (!cm.Returncam())
         {
-            if(movement.x == movement.y)
-            rb.AddForce(-movement * moveSpeed);
+            //rb.AddForce(-movement * moveSpeed);
+
+            switch (cm.GetFlameObj())
+            {
+                case "UpFlame":
+                    rb.AddForce(new Vector2(movement.x, -movement.y) * moveSpeed);
+                    break;
+                case "UnderFlame":
+                    rb.AddForce(new Vector2(movement.x, -movement.y) * moveSpeed);
+                    break;
+                case "RightFlame":
+                    rb.AddForce(new Vector2(-movement.x, movement.y) * moveSpeed);
+                    break;
+                case "LeftFlame":
+                    rb.AddForce(new Vector2(-movement.x, movement.y) * moveSpeed);
+                    break;
+                default:
+                    break;
+            }
 
             // パルク―ル中止まらない
             if (cc.isTrigger != true)

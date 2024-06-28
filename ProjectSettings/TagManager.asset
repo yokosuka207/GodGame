@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - block
+  - Flame
+  - Block
+  - Enemy
+  - UpFlame
+  - UnderFlame
+  - RightFlame
+  - LeftFlame
   layers:
   - Default
   - TransparentFX
