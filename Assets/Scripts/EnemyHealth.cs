@@ -63,6 +63,22 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    void Die()
+    {
+        GameManager.enemyKillCount++;
+        // 死亡エフェクトを発生させる
+        SpawnDeathEffect();
+
+        GameManager.Instance.EnemyKilled();
+
+        // エネミーを消す
+        Destroy(gameObject);
+
+        //プレイヤーに経験値を引き渡す
+        OnDestroy();
+
+    }
+
     void OnDestroy()
     {
         // エネミーが死亡したときに経験値をプレイヤーに渡す
@@ -78,18 +94,6 @@ public class EnemyHealth : MonoBehaviour
         {
             player.EnemyDied();
         }
-    }
-
-    void Die()
-    {
-        // 死亡エフェクトを発生させる
-        SpawnDeathEffect();
-
-        // エネミーを消す
-        Destroy(gameObject);
-
-        //プレイヤーに経験値を引き渡す
-        OnDestroy();
     }
 
     void SpawnDeathEffect()
